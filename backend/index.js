@@ -99,7 +99,9 @@ async function startServer() {
       }
     });
   } else {
-    const distPath = path.join(process.cwd(), "dist");
+    // In production, serve the built frontend. Vite outputs to `dist` inside the frontend folder.
+    const distPath = path.join(process.cwd(), "frontend", "dist");
+    console.log(`Serving static files from ${distPath}`);
     app.use(express.static(distPath));
     app.get("*", (req, res) => {
       res.sendFile(path.join(distPath, "index.html"));
